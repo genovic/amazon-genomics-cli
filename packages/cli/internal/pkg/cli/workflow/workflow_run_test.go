@@ -40,7 +40,7 @@ const (
 	testWorkflowTypeLang     = "TypeLanguage"
 	testWorkflowTypeVer      = "TypeVersion"
 	testOutputBucket         = "TestOutputBucket"
-	testWorkflowKey          = "project/" + testProjectName + "/userid/" + testUserId + "/context/" + testContext1Name + "/workflow/" + testLocalWorkflowName
+	testWorkflowKey          = "project/" + testProjectName + "/userid/" + testUserId + "/context/" + testContext1Name + "/workflow/" + testLocalWorkflowName + "/1234567890"
 	testWorkflowZipKey       = testWorkflowKey + "/workflow.zip"
 	testWorkflowLocalUrl     = "workflow/path/file.wdl"
 	testFullWorkflowLocalUrl = testProjectFileDir + "/" + testWorkflowLocalUrl
@@ -397,7 +397,7 @@ func (s *WorkflowRunTestSuite) TestRunWorkflow_UploadToS3Failed() {
 	s.mockConfigClient.EXPECT().GetUserId().Return(testUserId, nil)
 	s.mockCfn.EXPECT().GetStackStatus(testContext1Stack).Return(types.StackStatusCreateComplete, nil)
 	errorMessage := "cannot upload to S3"
-	expectedInfix := "unable to upload s3://TestOutputBucket/project/TestProject1/userid/bender123/context/TestContext1/workflow/TestLocalWorkflowName1/workflow.zip: "
+	expectedInfix := "unable to upload s3://TestOutputBucket/project/TestProject1/userid/bender123/context/TestContext1/workflow/TestLocalWorkflowName1/1234567890/workflow.zip: "
 	s.mockProjectClient.EXPECT().Read().Return(s.testProjSpec, nil)
 	s.mockProjectClient.EXPECT().GetLocation().Return(testProjectFileDir)
 	s.mockSsmClient.EXPECT().GetOutputBucket().Return(testOutputBucket, nil)

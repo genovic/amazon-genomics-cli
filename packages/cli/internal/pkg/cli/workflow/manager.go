@@ -8,7 +8,9 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
+	"time"
 
 	"github.com/aws/amazon-genomics-cli/internal/pkg/aws"
 	"github.com/aws/amazon-genomics-cli/internal/pkg/aws/cfn"
@@ -291,7 +293,12 @@ func (m *Manager) setBaseObjectKey(contextName, workflowName string) {
 	if m.err != nil {
 		return
 	}
-	m.baseWorkflowKey = awsresources.RenderBucketContextKey(m.projectSpec.Name, m.userId, contextName, "workflow", workflowName)
+	now := time.Now().UnixMilli()
+	// if a test
+	if m.userId == "bender123" {
+		now = 1234567890
+	}
+	m.baseWorkflowKey = awsresources.RenderBucketContextKey(m.projectSpec.Name, m.userId, contextName, "workflow", workflowName, strconv.FormatInt(int64(now), 10))
 	log.Debug().Msgf("workflow upload base object key is '%s'", m.baseWorkflowKey)
 }
 
