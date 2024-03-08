@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"math/rand"
 	"net/url"
 	"os"
 	"path/filepath"
-	"strconv"
 	"strings"
 	"time"
 
@@ -289,16 +289,28 @@ func (m *Manager) setOutputBucket() {
 	log.Debug().Msgf("using output bucket '%s'", m.bucketName)
 }
 
+func generateRandomKey(n int) string {
+	rand.Seed(time.Now().UnixNano())
+	letterRunes := []rune("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letterRunes[rand.Intn(len(letterRunes))]
+	}
+	return string(b)
+}
+
 func (m *Manager) setBaseObjectKey(contextName, workflowName string) {
 	if m.err != nil {
 		return
 	}
-	now := time.Now().UnixMilli()
+	// Create random directory key for workflow.zip
+	rand_key := generateRandomKey(15)
 	// if a test
 	if m.userId == "bender123" {
-		now = 1234567890
+		rand_key = "rand_bender123"
 	}
-	m.baseWorkflowKey = awsresources.RenderBucketContextKey(m.projectSpec.Name, m.userId, contextName, "workflow", workflowName, strconv.FormatInt(int64(now), 10))
+	m.baseWorkflowKey = awsresources.RenderBucketContextKey(m.projectSpec.Name, m.userId, contextName, "workflow", workflowName, rand_key)
 	log.Debug().Msgf("workflow upload base object key is '%s'", m.baseWorkflowKey)
 }
 

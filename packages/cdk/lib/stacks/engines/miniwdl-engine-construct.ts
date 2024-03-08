@@ -144,7 +144,7 @@ export class MiniwdlEngineConstruct extends EngineConstruct {
       instanceTypes: appParams.instanceTypes,
       maxVCpus: appParams.maxVCpus,
       launchTemplateData: LaunchTemplateData.renderLaunchTemplateData(ENGINE_MINIWDL),
-      awsPolicyNames: ["AmazonSSMManagedInstanceCore", "CloudWatchAgentServerPolicy"],
+      awsPolicyNames: ["AmazonSSMManagedInstanceCore", "CloudWatchAgentServerPolicy", "SecretsManagerReadWrite"],
       resourceTags: Stack.of(this).tags.tagValues(),
       workflowOrchestrator: ENGINE_MINIWDL,
       computeEnvImage,

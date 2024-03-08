@@ -177,7 +177,7 @@ export class SnakemakeEngineConstruct extends EngineConstruct {
       instanceTypes: appParams.instanceTypes,
       maxVCpus: appParams.maxVCpus,
       launchTemplateData: LaunchTemplateData.renderLaunchTemplateData(ENGINE_SNAKEMAKE),
-      awsPolicyNames: ["AmazonSSMManagedInstanceCore", "CloudWatchAgentServerPolicy"],
+      awsPolicyNames: ["AmazonSSMManagedInstanceCore", "CloudWatchAgentServerPolicy", "SecretsManagerReadWrite"],
       resourceTags: Stack.of(this).tags.tagValues(),
       workflowOrchestrator: ENGINE_SNAKEMAKE,
       computeEnvImage,

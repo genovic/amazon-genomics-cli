@@ -80,7 +80,7 @@ export class BatchConstruct extends Construct {
       instanceTypes: appParams.instanceTypes,
       maxVCpus: appParams.maxVCpus,
       launchTemplateData: LaunchTemplateData.renderLaunchTemplateData(appParams.engineName),
-      awsPolicyNames: ["AmazonSSMManagedInstanceCore", "CloudWatchAgentServerPolicy"],
+      awsPolicyNames: ["AmazonSSMManagedInstanceCore", "CloudWatchAgentServerPolicy", "SecretsManagerReadWrite"],
       resourceTags: Stack.of(this).tags.tagValues(),
       usePublicSubnets: appParams.usePublicSubnets,
     });
