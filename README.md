@@ -37,7 +37,7 @@ Once you've installed all the dependencies listed here, run `make init` to insta
 The Amazon Genomics CLI is written in Go.
 
 To manage and install Go versions, we use [goenv](https://github.com/syndbg/goenv). Follow the installation
-instructions [here](https://github.com/syndbg/goenv/blob/master/INSTALL.md).
+instructions [here](https://github.com/syndbg/goenv/blob/master/INSTALL.md). HINT: `brew install goenv`
 
 Once goenv is installed, use it to install the version of Go required by the
 Amazon Genomics CLI build process, so that it will be available when the build
